@@ -29,7 +29,9 @@
   - [`Composer`](https://getcomposer.org/download/)
   - `Node.js`
   - `npm`
-
+  - `pip`
+    - `twitter`
+    - `pymongo`
 
 ## Usage:
 ### Install
@@ -42,4 +44,9 @@ cd csmcaen
 ```bash
 cd website
 npm i
+```
+### Fill Database
+
+```bash
+python twitterCrawler.py
 ```
