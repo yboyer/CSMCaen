@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "node-sass": "^3.11.2"
+  },
+  "scripts": {
+    "preinstall": "composer install",
+    "postinstall": "npm start",
+    "start": "node-sass web/scss/main.scss web/css/app.css --output-style compressed"
+  }
+}

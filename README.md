@@ -22,7 +22,7 @@
   - [`Scrapy`](https://scrapy.org/) - Crawler
   - [`MongoDB`](https://www.mongodb.com/) - DBMS
   - [`Silex`](http://silex.sensiolabs.org/) - Micro-framework
-  - [`Gulp`](http://gulpjs.com/) - Task manager
+  - [`node-sass`](https://github.com/sass/node-sass) - SASS compiler
   - [`SASS`](http://sass-lang.com/) - Better CSS
 
 ## Prerequistes
@@ -42,5 +42,4 @@ cd csmcaen
 ```bash
 cd website
 npm i
-composer install
 ```
