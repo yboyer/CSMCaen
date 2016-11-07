@@ -6,6 +6,12 @@ use Symfony\Component\Debug\ExceptionHandler;
 ErrorHandler::register();
 ExceptionHandler::register();
 
+// Database
+$app->register(new Silex\Provider\DoctrineServiceProvider());
+$app['dao.messages'] = function ($app) {
+    return new YF\DAO\MessagesDAO($app['db']);
+};
+
 // Twig setup
 $app->register(new Silex\Provider\TwigServiceProvider(), [
     'twig.path' => __DIR__.'/../views',
