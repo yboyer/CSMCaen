@@ -20,7 +20,7 @@
 
 ## Technologies
   - [`Scrapy`](https://scrapy.org/) - Crawler
-  - [`MongoDB`](https://www.mongodb.com/) - DBMS
+  - [`MySQL`](http://www.mysql.com/) - DBMS
   - [`Silex`](http://silex.sensiolabs.org/) - Micro-framework
   - [`node-sass`](https://github.com/sass/node-sass) - SASS compiler
   - [`SASS`](http://sass-lang.com/) - Better CSS
