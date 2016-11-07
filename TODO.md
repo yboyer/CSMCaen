@@ -2,7 +2,7 @@
 > 15 novembre
 
 - [ ] **Crawler**
-  - [ ] Twitter (and Facebook)
+  - [x] Twitter (and Facebook)
     - [ ] >= 3 matches
       - [ ] 3 days (D <= D => D) each per match
         - [ ] >= 1000 documents

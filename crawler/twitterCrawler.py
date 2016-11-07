@@ -7,14 +7,17 @@ import json
 def twitterCrawler():
     t= Twitter(
     auth=OAuth(token,secret_token,key,secret_key))
-    search = t.search.tweets(q="SMCOGCN -filter:retweets AND -filter:replies",since="2016-11-06",until="2016-11-07",count=1000)
+    start_date = "2016-11-06"
+    end_date = "2016-11-07"
+    hashtag = "SMCOGCN"
+    search = t.search.tweets(q=hashtag+" -filter:retweets AND -filter:replies",since=start_date,until=end_date,count=1000)
     tweets = search['statuses']
     betterTweets = []
     for tweet in tweets:
-        betterTweets.append({'name':tweet["user"]["screen_name"], 'text' : tweet["text"], 'date' : tweet["created_at"]})
+        betterTweets.append({'name':tweet["user"]["screen_name"], 'text' : tweet["text"], 'date' : start_date})
     MONGODB_SERVER = 'localhost'
     MONGODB_PORT = 27017
-    MONGODB_DB = 'csmCaen'
+    MONGODB_DB = 'csmCaen2'
     MONGODB_COLLECTION = "tweets"
     connection = MongoClient(
             MONGODB_SERVER,

@@ -49,4 +49,5 @@ npm i
 
 ```bash
 python twitterCrawler.py
+python facebookCrawler.py
 ```
