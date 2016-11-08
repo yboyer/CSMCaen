@@ -2,6 +2,8 @@
 
 namespace YF\DAO;
 
+use YF\Domain\Tweet;
+
 class MessagesDAO extends DAO
 {
     public function findAllTweets()
@@ -11,14 +13,21 @@ class MessagesDAO extends DAO
 
         $tweets = [];
         foreach ($res as $data) {
-            var_dump($data);
+            $tweets[] = new Tweet($data);
         }
+        return $tweets;
+    }
+
+    public function getMatches()
+    {
+
+
     }
 
     public function findAll()
     {
         return [
-            'tweets' => $this->findAllTweets(),
+            'tweets' => $this->findAllTweets()
         ];
     }
 }
