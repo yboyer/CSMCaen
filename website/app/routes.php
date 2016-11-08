@@ -7,7 +7,11 @@ $app->get('/', function () use ($app) {
 });
 
 $app->get('/search', function () use ($app) {
-    return $app['twig']->render('search.html.twig');
+    $messages = $app['dao.messages']->getMatches();
+
+    return $app['twig']->render('search.html.twig', [
+        'matches' => []
+    ]);
 });
 
 // Error handler
