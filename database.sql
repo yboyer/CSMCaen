@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS `Post`;
 CREATE TABLE IF NOT EXISTS `Post` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL,
-  `content` varchar(255) NOT NULL,
+  `content` text NOT NULL,
   `team` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
