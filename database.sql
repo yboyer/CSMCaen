@@ -14,7 +14,7 @@
 
 -- Export de la structure de la base pour CSMCaen
 DROP DATABASE IF EXISTS `CSMCaen`;
-CREATE DATABASE IF NOT EXISTS `CSMCaen` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE IF NOT EXISTS `CSMCaen` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 USE `CSMCaen`;
 
 -- Export de la structure de la table CSMCaen. Match
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `Match` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `team` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Les données exportées n'étaient pas sélectionnées.
 -- Export de la structure de la table CSMCaen. Post
@@ -31,26 +31,26 @@ DROP TABLE IF EXISTS `Post`;
 CREATE TABLE IF NOT EXISTS `Post` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL,
-  `content` text NOT NULL,
+  `content` varchar(255) NOT NULL,
   `match` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_Post_Match` (`match`),
   CONSTRAINT `FK_Post_Match` FOREIGN KEY (`match`) REFERENCES `Match` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Les données exportées n'étaient pas sélectionnées.
 -- Export de la structure de la table CSMCaen. Tweet
 DROP TABLE IF EXISTS `Tweet`;
 CREATE TABLE IF NOT EXISTS `Tweet` (
   `id` int(6) unsigned NOT NULL AUTO_INCREMENT,
-  `content` text NOT NULL,
-  `username` text NOT NULL,
+  `content` varchar(255) NOT NULL,
+  `username` varchar(50) NOT NULL,
   `date` date NOT NULL,
   `match` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_Tweet_Match` (`match`),
   CONSTRAINT `FK_Tweet_Match` FOREIGN KEY (`match`) REFERENCES `Match` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Les données exportées n'étaient pas sélectionnées.
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
