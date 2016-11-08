@@ -32,6 +32,8 @@
   - `pip`
     - `twitter`
     - `pymongo`
+    - `python-dateutil`
+    - `mysql-connector`
 
 ## Usage:
 ### Install

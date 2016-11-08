@@ -5,8 +5,8 @@
   - [x] Twitter (and Facebook)
     - [ ] >= 3 matches
       - [ ] 3 days (D <= D => D) each per match
-        - [ ] >= 1000 documents
-          - [ ] Store in DB
+        - [x] >= 1000 documents
+          - [x] Store in DB
 - [ ] **Analysis**
   - [ ] Retreve overall sentiment
 - [ ] **Website**
