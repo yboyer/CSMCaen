@@ -1,0 +1,45 @@
+#matches {
+  .matches {
+    display: flex;
+    margin-top: 30px;
+  }
+
+  h5 {
+    font-weight: bold;
+  }
+
+  .match {
+    background: #d1d1d1;
+    border-radius: 0.4rem;
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+    line-height: 3rem;
+    margin-bottom: 2.5rem;
+    width: 250px;
+    padding: 0 7px;
+    margin: 0 0 10px 10px;
+
+    &:hover {
+      background-color: rgba(37, 52, 94, .25);
+    }
+
+    .date {
+      font-size: 2.3em;
+      opacity: 0.3;
+    }
+
+    .count {
+      font-size: 1.2em;
+      font-style: italic;
+      text-align: right;
+      font-weight: 400;
+    }
+
+    .title {
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 1.3em;
+      font-weight: 600;
+    }
+  }
+}

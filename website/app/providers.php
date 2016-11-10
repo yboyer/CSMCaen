@@ -11,6 +11,9 @@ $app->register(new Silex\Provider\DoctrineServiceProvider());
 $app['dao.messages'] = function ($app) {
     return new YF\DAO\MessagesDAO($app['db']);
 };
+$app['dao.matches'] = function ($app) {
+    return new YF\DAO\MatchesDAO($app['db']);
+};
 
 // Twig setup
 $app->register(new Silex\Provider\TwigServiceProvider(), [

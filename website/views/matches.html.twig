@@ -1,0 +1,23 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Matches :: {{ parent() }}{% endblock %}
+
+{% block main %}
+  <div id="matches">
+    <h2>Matches</h2>
+
+    <section>
+      <h5>Select a match to display sentimental analysis</h5>
+      <div class="matches">
+        {% for match in matches %}
+        <a href="{{ root }}search/{{ match.date }}" class="match">
+          <div class="date">{{ match.date }}</div>
+          <div class="title">Caen vs {{ match.team }}</div>
+          <div class="count" title>({{ match.nbMessages }})</div>
+        </a>
+        {% endfor %}
+
+      </div>
+    </section>
+  </div>
+{% endblock %}
