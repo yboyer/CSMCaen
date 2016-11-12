@@ -5,10 +5,10 @@ import requests
 
 
 def analyseFacebook():
-    cnx = mysql.connector.connect(user='root',port="3307", password='', database='csmcaen',use_unicode=True)
+    cnx = mysql.connector.connect(user='root',port="3307", password='', database='CSMCaen',use_unicode=True)
     cursor = cnx.cursor(buffered=True)
 
-    query = ("SELECT * FROM post")
+    query = ("SELECT * FROM Post")
 
     cursor.execute(query)
     results = cursor.fetchall()
@@ -21,20 +21,20 @@ def analyseFacebook():
         print(post[0])
         print(response)
         if response['label'] == "pos":
-            feel = "1"
+            sentiment = "1"
             pass
         if response['label'] == "neutral":
-            feel = "0"
+            sentiment = "0"
             pass
         if response['label'] == "neg":
-            feel = "-1"
+            sentiment = "-1"
             pass
-        update_post =("UPDATE post SET neg=%(neg)s, neutral=%(neutral)s, pos=%(pos)s, feel=%(feel)s WHERE id=%(id)s")
+        update_post =("UPDATE Post SET negative=%(negative)s, neutral=%(neutral)s, positive=%(positive)s, sentiment=%(sentiment)s WHERE id=%(id)s")
         data_post = {
-            'neg' : response['probability']['neg'],
+            'negative' : response['probability']['neg'],
             'neutral' : response['probability']['neutral'],
-            'pos' : response['probability']['pos'],
-            'feel' : feel,
+            'positive' : response['probability']['pos'],
+            'sentiment' : sentiment,
             'id' : post[0],
         }
         cursor.execute(update_post, data_post)

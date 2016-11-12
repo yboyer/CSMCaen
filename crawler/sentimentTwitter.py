@@ -5,10 +5,10 @@ import requests
 
 
 def analyseTweets():
-    cnx = mysql.connector.connect(user='root',port="3307", password='', database='csmcaen',use_unicode=True)
+    cnx = mysql.connector.connect(user='root',port="3307", password='', database='CSMCaen',use_unicode=True)
     cursor = cnx.cursor(buffered=True)
 
-    query = ("SELECT * FROM tweet")
+    query = ("SELECT * FROM Tweet")
 
     cursor.execute(query)
     results = cursor.fetchall()
@@ -21,20 +21,20 @@ def analyseTweets():
         print(tweet[0])
         print(response)
         if response['label'] == "pos":
-            feel = "1"
+            sentiment = "1"
             pass
         if response['label'] == "neutral":
-            feel = "0"
+            sentiment = "0"
             pass
         if response['label'] == "neg":
-            feel = "-1"
+            sentiment = "-1"
             pass
-        update_tweet =("UPDATE tweet SET neg=%(neg)s, neutral=%(neutral)s, pos=%(pos)s, feel=%(feel)s WHERE id=%(id)s")
+        update_tweet =("UPDATE Tweet SET negative=%(negative)s, neutral=%(neutral)s, positive=%(positive)s, sentiment=%(sentiment)s WHERE id=%(id)s")
         data_tweet = {
-            'neg' : response['probability']['neg'],
+            'negative' : response['probability']['neg'],
             'neutral' : response['probability']['neutral'],
-            'pos' : response['probability']['pos'],
-            'feel' : feel,
+            'positive' : response['probability']['pos'],
+            'sentiment' : sentiment,
             'id' : tweet[0],
         }
         cursor.execute(update_tweet, data_tweet)

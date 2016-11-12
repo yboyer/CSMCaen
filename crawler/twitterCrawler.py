@@ -1,6 +1,5 @@
 # coding: utf-8
 from twitter import *
-from pymongo import MongoClient
 from config import *
 from dateutil.parser import parse
 import mysql.connector
@@ -10,7 +9,7 @@ import json
 
 def twitterCrawler():
     ##Connection to db
-    cnx = mysql.connector.connect(user='root',port="3307", password='', database='csmcaen',use_unicode=True)
+    cnx = mysql.connector.connect(user='root',port="3307", password='', database='CSMCaen',use_unicode=True)
     cursor = cnx.cursor()
     cursor.execute('SET NAMES utf8mb4')
     cursor.execute("SET CHARACTER SET utf8mb4")
@@ -31,7 +30,7 @@ def twitterCrawler():
     tweets = search['statuses']
     betterTweets = []
     for tweet in tweets:
-        add_tweet =("INSERT INTO tweet"
+        add_tweet =("INSERT INTO Tweet"
         "(content, username, date, team)"
         "VALUES (%(content)s, %(username)s, %(date)s, %(team)s)"
         )

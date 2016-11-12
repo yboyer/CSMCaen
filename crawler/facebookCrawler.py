@@ -1,5 +1,4 @@
 # coding: utf-8
-from pymongo import MongoClient
 from config import *
 import requests
 from dateutil.parser import parse
@@ -11,7 +10,7 @@ import json
 def facebookCrawler():
 
     ##Connection to db
-    cnx = mysql.connector.connect(user='root',port="3307", password='', database='csmcaen',use_unicode=True)
+    cnx = mysql.connector.connect(user='root',port="3307", password='', database='CSMCaen',use_unicode=True)
     cursor = cnx.cursor()
     cursor.execute('SET NAMES utf8mb4')
     cursor.execute("SET CHARACTER SET utf8mb4")
@@ -33,7 +32,7 @@ def facebookCrawler():
     #add posts
     for data in datas["posts"]["data"]:
         if 'message' in data.keys():
-            add_post =("INSERT INTO post"
+            add_post =("INSERT INTO Post"
             "(content, date, team)"
             "VALUES (%(content)s, %(date)s, %(team)s)"
             )
@@ -49,7 +48,7 @@ def facebookCrawler():
         ##add post comments like posts
         for com in data["comments"]["data"]:
             if 'message' in com.keys():
-                add_comm =("INSERT INTO post"
+                add_comm =("INSERT INTO Post"
                 "(content, date, team)"
                 "VALUES (%(contentcomm)s, %(datecomm)s, %(teamcomm)s)"
                 )
