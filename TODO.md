@@ -10,6 +10,7 @@
 - [ ] **Analysis**
   - [ ] Retreve overall sentiment
 - [ ] **Website**
+  - [x] Add Roboto font
   - [ ] Search module
     - [ ] Three match days
   - [ ] Analystic module

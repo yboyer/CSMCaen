@@ -2,9 +2,10 @@
 
 use Symfony\Component\HttpFoundation\Request;
 
+// Routes
 $app->get('/', function () use ($app) {
-    return $app['twig']->render('home.html.twig');
-});
+    return $app->redirect('/matches');
+})->bind('home');
 
 $app->get('/matches', function () use ($app) {
     $matches = $app['dao.matches']->findAll();

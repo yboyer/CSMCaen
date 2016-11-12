@@ -1,13 +1,16 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Matches :: {{ parent() }}{% endblock %}
+{% block title %}List of matches{% endblock %}
 
 {% block main %}
   <div id="matches">
-    <h2>Matches</h2>
-
     <section>
-      <h5>Select a match to display sentimental analysis</h5>
+      <img src="http://www.smcaen.fr/sites/all/themes/bootstrap_cins/images/logo_smc_conquerants.png" alt="" />
+    </section>
+    <section>
+      <h2>Matches</h2>
+
+      <h6>Select a match to display sentimental analysis</h6>
       <div class="matches">
         {% for match in matches %}
         <a href="{{ root }}search/{{ match.date }}" class="match">

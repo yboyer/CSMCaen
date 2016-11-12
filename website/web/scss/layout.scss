@@ -15,6 +15,15 @@ a {
   margin: auto;
 }
 
+section {
+  padding-bottom: 30px;
+  margin-bottom: 10px;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid $color-quaternary;
+  }
+}
+
 main {
   @extend .fit;
   padding-top: 105px;
