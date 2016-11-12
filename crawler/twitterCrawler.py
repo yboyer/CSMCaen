@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf-8
 from twitter import *
 from pymongo import MongoClient
 from config import *
