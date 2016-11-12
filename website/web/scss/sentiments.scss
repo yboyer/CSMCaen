@@ -58,6 +58,10 @@
     margin-left: 20px;
   }
 
+  li:nth-child(even) {
+    background: rgba(37,52,94,0.1);
+  }
+
   .message {
     $bgc: #25345e;
 

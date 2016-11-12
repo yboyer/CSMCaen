@@ -38,6 +38,93 @@ class MessagesDAO extends DAO
         return $res;
     }
 
+    private function getNegativeMessages($date)
+    {
+        $dates = $this->getMatchDates($date);
+        $messages = [];
+
+        $where = "WHERE sentiment='-1' AND (date = '$dates[0]' or date = '$dates[1]' or date = '$dates[2]') ORDER BY negative DESC";
+
+        $sqlTweets = "SELECT * FROM Tweet $where";
+        $resTweets = $this->db->fetchAll($sqlTweets);
+        foreach ($resTweets as $data) {
+            $messages[] = new Message($data);
+        }
+
+        $sqlPosts = "SELECT * FROM Post $where";
+        $resPosts = $this->db->fetchAll($sqlPosts);
+        foreach ($resPosts as $data) {
+            $messages[] = new Message($data);
+        }
+
+
+        $negatives = [];
+        foreach ($messages as $key => $row) {
+            $negatives[$key] = $row->getNegative();
+        }
+        array_multisort($negatives, SORT_DESC, $messages);
+
+        return $messages;
+    }
+
+    private function getNeutralMessages($date)
+    {
+        $dates = $this->getMatchDates($date);
+        $messages = [];
+
+        $where = "WHERE sentiment='0' AND (date = '$dates[0]' or date = '$dates[1]' or date = '$dates[2]') ORDER BY neutral DESC";
+
+        $sqlTweets = "SELECT * FROM Tweet $where";
+        $resTweets = $this->db->fetchAll($sqlTweets);
+        foreach ($resTweets as $data) {
+            $messages[] = new Message($data);
+        }
+
+        $sqlPosts = "SELECT * FROM Post $where";
+        $resPosts = $this->db->fetchAll($sqlPosts);
+        foreach ($resPosts as $data) {
+            $messages[] = new Message($data);
+        }
+
+
+        $neutrals = [];
+        foreach ($messages as $key => $row) {
+            $neutrals[$key] = $row->getNeutral();
+        }
+        array_multisort($neutrals, SORT_DESC, $messages);
+
+        return $messages;
+    }
+
+    private function getPositiveMessages($date)
+    {
+        $dates = $this->getMatchDates($date);
+        $messages = [];
+
+        $where = "WHERE sentiment='1' AND (date = '$dates[0]' or date = '$dates[1]' or date = '$dates[2]') ORDER BY positive DESC";
+
+        $sqlTweets = "SELECT * FROM Tweet $where";
+        $resTweets = $this->db->fetchAll($sqlTweets);
+        foreach ($resTweets as $data) {
+            $messages[] = new Message($data);
+        }
+
+        $sqlPosts = "SELECT * FROM Post $where";
+        $resPosts = $this->db->fetchAll($sqlPosts);
+        foreach ($resPosts as $data) {
+            $messages[] = new Message($data);
+        }
+
+
+        $positives = [];
+        foreach ($messages as $key => $row) {
+            $positives[$key] = $row->getPositive();
+        }
+        array_multisort($positives, SORT_DESC, $messages);
+
+        return $messages;
+    }
+
     private function getMatchDates($date)
     {
         $oneDay = 60 * 60 * 24;
@@ -116,9 +203,9 @@ class MessagesDAO extends DAO
             'team' => $this->getTeam($date),
             'messages' => $messages,
             'top10' => [$messages[5]],
-            'negatives' => [],
-            'neutral' => [],
-            'positives' => [],
+            'negatives' => array_slice($this->getNegativeMessages($date), 0, 20),
+            'neutrals' => array_slice($this->getNeutralMessages($date), 0, 20),
+            'positives' => array_slice($this->getPositiveMessages($date), 0, 20),
             'tweets' => [
                 'total' => count($tweets),
                 'negatives' => $tweetSentiments[-1],

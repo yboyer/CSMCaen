@@ -64,44 +64,40 @@
     </section>
     <section>
       <h3>Top 10 of relevant messages</h3>
-
       <ol>
       {% for message in top10 %}
         <li>
-          <span>{{ message.content }}</span> <span>({{ message.negative }}, {{ message.neutral }}, {{ message.positive }})</span>
+          <span>{{ message.content }}</span></span>
         </li>
       {% endfor %}
       </ol>
     </section>
     <section>
-      <h3>Positive messages</h3>
-
+      <h3>Top 20 of positive messages</h3>
       <ol>
-        {% for message in negatives %}
+        {% for message in positives %}
         <li>
-          <span>{{ message.content }}</span> <span>({{ message.negative }}, {{ message.neutral }}, {{ message.positive }})</span>
+          <span>{{ message.content }}</span> <span>({{ (message.positive * 100)|round(1) }}%)</span>
         </li>
         {% endfor %}
       </ol>
     </section>
     <section>
-      <h3>Neutral messages</h3>
-
+      <h3>Top 20 of neutral messages</h3>
       <ol>
-      {% for message in negatives %}
+      {% for message in neutrals %}
         <li>
-          <span>{{ message.content }}</span> <span>({{ message.negative }}, {{ message.neutral }}, {{ message.positive }})</span>
+          <span>{{ message.content }}</span> <span>({{ (message.neutral * 100)|round(1) }}%)</span>
         </li>
       {% endfor %}
       </ol>
     </section>
     <section>
-      <h3>Negative messages</h3>
-
+      <h3>Top 20 of Negative messages</h3>
       <ol>
       {% for message in negatives %}
         <li>
-          <span>{{ message.content }}</span> <span>({{ message.negative }}, {{ message.neutral }}, {{ message.positive }})</span>
+          <span>{{ message.content }}</span> <span>({{ (message.negative * 100)|round(1) }}%)</span>
         </li>
       {% endfor %}
       </ol>
