@@ -57,7 +57,6 @@ class MessagesDAO extends DAO
             $messages[] = new Message($data);
         }
 
-
         $negatives = [];
         foreach ($messages as $key => $row) {
             $negatives[$key] = $row->getNegative();
@@ -85,7 +84,6 @@ class MessagesDAO extends DAO
         foreach ($resPosts as $data) {
             $messages[] = new Message($data);
         }
-
 
         $neutrals = [];
         foreach ($messages as $key => $row) {
@@ -115,7 +113,6 @@ class MessagesDAO extends DAO
             $messages[] = new Message($data);
         }
 
-
         $positives = [];
         foreach ($messages as $key => $row) {
             $positives[$key] = $row->getPositive();
@@ -123,6 +120,38 @@ class MessagesDAO extends DAO
         array_multisort($positives, SORT_DESC, $messages);
 
         return $messages;
+    }
+
+    private function getRelevantMessages($date)
+    {
+        $relevants = [];
+
+        $negatives = $this->getNegativeMessages($date);
+        $neutrals = $this->getNeutralMessages($date);
+        $positives = $this->getPositiveMessages($date);
+
+        foreach ($negatives as $message) {
+            $relevants[] = [
+                'rate' => $message->getNegative(),
+                'label' => 'Negative',
+                'msg' => $message,
+            ];
+        }
+        foreach ($positives as $message) {
+            $relevants[] = [
+                'rate' => $message->getPositive(),
+                'label' => 'Positive',
+                'msg' => $message,
+            ];
+        }
+
+        $rates = [];
+        foreach ($relevants as $key => $row) {
+            $rates[$key] = $row['rate'];
+        }
+        array_multisort($rates, SORT_DESC, $relevants);
+
+        return $relevants;
     }
 
     private function getMatchDates($date)
@@ -175,7 +204,7 @@ class MessagesDAO extends DAO
 
     public function getSentimentById($date, $id)
     {
-        $type = $id[0] === 'P' ? 'Post': 'Tweet';
+        $type = $id[0] === 'P' ? 'Post' : 'Tweet';
         $id = substr($id, 1);
 
         $message = $this->findMessage($id, $type);
@@ -202,7 +231,7 @@ class MessagesDAO extends DAO
             'dates' => $this->getMatchDates($date),
             'team' => $this->getTeam($date),
             'messages' => $messages,
-            'top10' => [$messages[5]],
+            'relevants' => array_slice($this->getRelevantMessages($date), 0, 20),
             'negatives' => array_slice($this->getNegativeMessages($date), 0, 20),
             'neutrals' => array_slice($this->getNeutralMessages($date), 0, 20),
             'positives' => array_slice($this->getPositiveMessages($date), 0, 20),

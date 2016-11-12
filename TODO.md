@@ -16,7 +16,7 @@
     - [ ] Three match days
   - [ ] Analystic module
     - [x] Graphical visualizing of sentiments
-    - [ ] Retrieve relevant documents
+    - [x] Retrieve relevant documents
     - [x] List of negative, positive and neutral sentiments
 - [ ] ___++___
   - [ ] Match statistics

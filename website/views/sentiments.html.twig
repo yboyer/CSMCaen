@@ -63,11 +63,12 @@
       </div>
     </section>
     <section>
-      <h3>Top 10 of relevant messages</h3>
+      <h3>Top 20 of relevant messages</h3>
       <ol>
-      {% for message in top10 %}
+      {% for message in relevants %}
         <li>
-          <span>{{ message.content }}</span></span>
+          <span>{{ message.msg.content }}</span>
+          <div class="info"><span class="capitalize">{{ message.label }}</span> by {{ (message.rate * 100)|round(1) }}%</div>
         </li>
       {% endfor %}
       </ol>
@@ -77,7 +78,7 @@
       <ol>
         {% for message in positives %}
         <li>
-          <span>{{ message.content }}</span> <span>({{ (message.positive * 100)|round(1) }}%)</span>
+          <span>{{ message.content }}</span> <span class="info">({{ (message.positive * 100)|round(1) }}%)</span>
         </li>
         {% endfor %}
       </ol>
@@ -87,7 +88,7 @@
       <ol>
       {% for message in neutrals %}
         <li>
-          <span>{{ message.content }}</span> <span>({{ (message.neutral * 100)|round(1) }}%)</span>
+          <span>{{ message.content }}</span> <span class="info">({{ (message.neutral * 100)|round(1) }}%)</span>
         </li>
       {% endfor %}
       </ol>
@@ -97,7 +98,7 @@
       <ol>
       {% for message in negatives %}
         <li>
-          <span>{{ message.content }}</span> <span>({{ (message.negative * 100)|round(1) }}%)</span>
+          <span>{{ message.content }}</span> <span class="info">({{ (message.negative * 100)|round(1) }}%)</span>
         </li>
       {% endfor %}
       </ol>
