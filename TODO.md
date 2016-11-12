@@ -10,13 +10,14 @@
 - [ ] **Analysis**
   - [ ] Retreve overall sentiment
 - [ ] **Website**
+  - [x] Add D3.js script file
   - [x] Add Roboto font
   - [ ] Search module
     - [ ] Three match days
   - [ ] Analystic module
-    - [ ] Graphical visualizing of sentiments
+    - [x] Graphical visualizing of sentiments
     - [ ] Retrieve relevant documents
-    - [ ] List of negative and positive sentiments
+    - [ ] List of negative, positive and neutral sentiments
 - [ ] ___++___
   - [ ] Match statistics
   - [ ] Trends for matches

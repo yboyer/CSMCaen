@@ -1,0 +1,114 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Sentiments about Caen vs {{ team }}{% endblock %}
+
+{% block main %}
+  <div id="sentiments">
+    <section>
+      <h2>Sentiments about <strong><span class="upper">Caen</span> vs <span class="upper">{{ team }}</span></strong> <span class="matchDate">({{ dates[1] }})</span></h2>
+
+      <p>Analysis for the <strong>{{ dates[0] }}</strong>, <strong>{{ dates[1] }}</strong> and <strong>{{ dates[2] }}</strong>.</p>
+
+      <div id="resume">
+        <table>
+          <thead>
+            <tr>
+              <th>Providers</th>
+              <th>Messages</th>
+              <th>Positives</th>
+              <th>Negatives</th>
+              <th>Neutrals</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Twitter</td>
+              <td>{{ tweets.total }}</td>
+              <td>{{ tweets.positives }}</td>
+              <td>{{ tweets.negatives }}</td>
+              <td>{{ tweets.neutrals }}</td>
+            </tr>
+            <tr>
+              <td>Facebook</td>
+              <td>{{ posts.total }}</td>
+              <td>{{ posts.positives }}</td>
+              <td>{{ posts.negatives }}</td>
+              <td>{{ posts.neutrals }}</td>
+            </tr>
+            <tr>
+              <td><strong>=</strong></td>
+              <td>{{ tweets.total + posts.total }}</td>
+              <td>{{ posts.positives + tweets.positives }}</td>
+              <td>{{ posts.negatives + tweets.negatives }}</td>
+              <td>{{ posts.neutrals + tweets.neutrals }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="feel">
+        <div class="data">
+          <div><span id="label"></span> <span id="reset">✗</span></div>
+          <svg wifth="300" height="260" id="graph"></svg>
+        </div>
+        <div id="messages">
+          {% for message in messages %}
+          <div class="message" data-id="{{ message.id }}">
+            <div class="date">{{ message.date }}</div>
+            <div class="content">{{ message.content }}</div>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+    </section>
+    <section>
+      <h3>Top 10 of relevant messages</h3>
+
+      <ol>
+      {% for message in top10 %}
+        <li>
+          <span>{{ message.content }}</span> <span>({{ message.negative }}, {{ message.neutral }}, {{ message.positive }})</span>
+        </li>
+      {% endfor %}
+      </ol>
+    </section>
+    <section>
+      <h3>Positive messages</h3>
+
+      <ol>
+        {% for message in negatives %}
+        <li>
+          <span>{{ message.content }}</span> <span>({{ message.negative }}, {{ message.neutral }}, {{ message.positive }})</span>
+        </li>
+        {% endfor %}
+      </ol>
+    </section>
+    <section>
+      <h3>Neutral messages</h3>
+
+      <ol>
+      {% for message in negatives %}
+        <li>
+          <span>{{ message.content }}</span> <span>({{ message.negative }}, {{ message.neutral }}, {{ message.positive }})</span>
+        </li>
+      {% endfor %}
+      </ol>
+    </section>
+    <section>
+      <h3>Negative messages</h3>
+
+      <ol>
+      {% for message in negatives %}
+        <li>
+          <span>{{ message.content }}</span> <span>({{ message.negative }}, {{ message.neutral }}, {{ message.positive }})</span>
+        </li>
+      {% endfor %}
+      </ol>
+    </section>
+  </div>
+
+  <script src="{{ root }}js/d3.v3.min.js"></script>
+  <script src="{{ root }}js/pie.js"></script>
+  <script src="{{ root }}js/graph.js"></script>
+{% endblock %}

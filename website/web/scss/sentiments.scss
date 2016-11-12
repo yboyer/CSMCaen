@@ -1,0 +1,95 @@
+#sentiments {
+  path.slice {
+    stroke-width: 2px;
+  }
+
+  polyline {
+    opacity: 0.3;
+    stroke: black;
+    stroke-width: 2px;
+    fill: none;
+  }
+
+  svg text.percent {
+    fill: $color-primary;
+    text-anchor: middle;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .matchDate {
+    font-style: italic;
+    font-weight: 100;
+    opacity: 0.75;
+  }
+
+  #reset {
+    visibility: hidden;
+    font-weight: 900;
+    cursor: pointer;
+    font-size: 0.8em;
+
+    &.show {
+      visibility: visible;
+    }
+  }
+
+  #resume {
+    background: $color-tertiary;
+    border: 0;
+    border-left: 0.3rem solid $color-primary;
+    padding-left: 20px;
+  }
+
+  #feel {
+    display: flex;
+    align-items: center;
+  }
+
+  #graph {
+    flex-shrink: 0;
+  }
+
+  #messages {
+    height: 600px;
+    overflow: auto;
+    border: 1px solid $gold;
+    border-radius: 3px;
+    margin-left: 20px;
+  }
+
+  .message {
+    $bgc: #25345e;
+
+    display: flex;
+    line-height: 1.3em;
+    padding-bottom: 3px;
+    cursor: pointer;
+
+    &.selected {
+      background: rgba($bgc, 0.6) !important;
+      color: #fff;
+      font-weight: 400;
+      cursor: default;
+    }
+
+    &:hover {
+      background: rgba($bgc, 0.6) !important;
+      color: #FFF;
+    }
+
+    &:nth-child(even) {
+      background: rgba($bgc, 0.1);
+    }
+
+    .date {
+      flex-shrink: 0;
+      padding: 0 10px;
+      font-size: 0.8em;
+    }
+
+    .content {
+      word-wrap: break-word;
+    }
+  }
+}

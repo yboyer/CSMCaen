@@ -8,8 +8,8 @@ class MatchesDAO extends DAO
 {
     public function findAll()
     {
-        $sqlTweets = 'SELECT count(*) AS count, date, team FROM Tweet GROUP BY date, team';
-        $sqlPosts = 'SELECT count(*) AS count, date, team FROM Post GROUP BY date, team';
+        $sqlTweets = 'SELECT count(*) AS count, date, Team.name as team FROM Tweet, Team WHERE Tweet.team = Team.id GROUP BY date, team';
+        $sqlPosts = 'SELECT count(*) AS count, date, Team.name as team FROM Post, Team WHERE Post.team = Team.id GROUP BY date, team';
         $resTweets = $this->db->fetchAll($sqlTweets);
         $resPosts = $this->db->fetchAll($sqlPosts);
 

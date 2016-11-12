@@ -13,7 +13,7 @@
       <h6>Select a match to display sentimental analysis</h6>
       <div class="matches">
         {% for match in matches %}
-        <a href="{{ root }}search/{{ match.date }}" class="match">
+        <a href="{{ path('sentiments', {date: match.date}) }}" class="match">
           <div class="date">{{ match.date }}</div>
           <div class="title">Caen vs {{ match.team }}</div>
           <div class="count" title>({{ match.nbMessages }})</div>

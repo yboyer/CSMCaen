@@ -2,32 +2,135 @@
 
 namespace YF\DAO;
 
-use YF\Domain\Tweet;
+use YF\Domain\Message;
 
 class MessagesDAO extends DAO
 {
-    public function findAllTweets()
+    private function findMessages($date, $type)
     {
-        $sql = 'SELECT * FROM Tweets';
+        $dates = $this->getMatchDates($date);
+
+        $sql = "SELECT * FROM $type WHERE date = '$dates[0]' or date = '$dates[1]' or date = '$dates[2]' ORDER BY date";
         $res = $this->db->fetchAll($sql);
 
-        $tweets = [];
+        $messages = [];
         foreach ($res as $data) {
-            $tweets[] = new Tweet($data);
+            $data['id'] = $type[0].$data['id'];
+            $messages[] = new Message($data);
         }
-        return $tweets;
+
+        return $messages;
+    }
+    public function findTweets($date)
+    {
+        return $this->findMessages($date, 'Tweet');
+    }
+    public function findPosts($date)
+    {
+        return $this->findMessages($date, 'Post');
     }
 
-    public function getMatches()
+    private function findMessage($id, $type)
     {
+        $sql = "SELECT negative as '-1', neutral as '0', positive as '1' FROM $type WHERE id='$id' LIMIT 1";
+        $res = $this->db->fetchAssoc($sql);
 
-
+        return $res;
     }
 
-    public function findAll()
+    private function getMatchDates($date)
     {
+        $oneDay = 60 * 60 * 24;
+        $dateM1 = date('Y-m-d', (strtotime($date) - $oneDay));
+        $dateP1 = date('Y-m-d', (strtotime($date) + $oneDay));
+
         return [
-            'tweets' => $this->findAllTweets()
+            $dateM1,
+            $date,
+            $dateP1,
+        ];
+    }
+
+    private function getTeam($date)
+    {
+        $dates = $this->getMatchDates($date);
+
+        $sql = "SELECT Team.name FROM Post, Team WHERE Post.team = Team.id AND (date = '$dates[0]' or date = '$dates[1]' or date = '$dates[2]') LIMIT 1";
+        $team = $this->db->fetchColumn($sql);
+
+        return $team;
+    }
+
+    private function getGlobalSentiment($array)
+    {
+        $sentiment = [
+            -1 => 0,
+            0 => 0,
+            1 => 0,
+        ];
+        foreach ($array as $value) {
+            if (!is_null($value->getSentiment())) {
+                ++$sentiment[$value->getSentiment()];
+            }
+        }
+
+        return $sentiment;
+    }
+
+    public function getSentiment($date)
+    {
+        $tweets = $this->findTweets($date);
+        $posts = $this->findPosts($date);
+        $messages = array_merge($tweets, $posts);
+
+        return $this->getGlobalSentiment($messages);
+    }
+
+    public function getSentimentById($date, $id)
+    {
+        $type = $id[0] === 'P' ? 'Post': 'Tweet';
+        $id = substr($id, 1);
+
+        $message = $this->findMessage($id, $type);
+
+        return $message;
+    }
+
+    public function find($date)
+    {
+        $tweets = $this->findTweets($date);
+        $posts = $this->findPosts($date);
+        $messages = array_merge($tweets, $posts);
+
+        $dates = [];
+        foreach ($messages as $key => $row) {
+            $dates[$key] = $row->getDate();
+        }
+        array_multisort($dates, SORT_DESC, $messages);
+
+        $tweetSentiments = $this->getGlobalSentiment($tweets);
+        $postSentiments = $this->getGlobalSentiment($posts);
+
+        return [
+            'dates' => $this->getMatchDates($date),
+            'team' => $this->getTeam($date),
+            'messages' => $messages,
+            'top10' => [$messages[5]],
+            'negatives' => [],
+            'neutral' => [],
+            'positives' => [],
+            'tweets' => [
+                'total' => count($tweets),
+                'negatives' => $tweetSentiments[-1],
+                'neutrals' => $tweetSentiments[0],
+                'positives' => $tweetSentiments[1],
+            ],
+            'posts' => [
+                'total' => count($posts),
+                'negatives' => $postSentiments[-1],
+                'neutrals' => $postSentiments[0],
+                'positives' => $postSentiments[1],
+            ],
         ];
     }
 }

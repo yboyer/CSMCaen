@@ -1,3 +1,4 @@
+$gold: #d6b473;
 
 * {
   box-sizing: border-box;
@@ -13,6 +14,10 @@ a {
   padding-right: 60px;
   max-width: 1200px;
   margin: auto;
+}
+
+.upper {
+  text-transform: uppercase;
 }
 
 section {
