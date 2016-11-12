@@ -30,8 +30,6 @@
   - `Node.js`
   - `npm`
   - `pip`
-    - `twitter`
-    - `pymongo`
     - `python-dateutil`
     - `mysql-connector`
 
@@ -48,8 +46,17 @@ cd website
 npm i
 ```
 ### Fill Database
+Import [`database.sql`](database.sql) to MySQL.
 
+##### Crawling:
+Edit `start_date` and `end_date` variables in `facebookCrawler.py` and `twitterCrawler.py` to crawl a given date.  
 ```bash
 python twitterCrawler.py
 python facebookCrawler.py
+```
+##### Sentiment analysis:
+Update the database datas by adding sentimental analysis.
+```bash
+python sentimentTwitter.py
+python sentimentfacebook.py
 ```
