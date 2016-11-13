@@ -193,25 +193,6 @@ class MessagesDAO extends DAO
         return $sentiment;
     }
 
-    public function getSentiment($date)
-    {
-        $tweets = $this->findTweets($date);
-        $posts = $this->findPosts($date);
-        $messages = array_merge($tweets, $posts);
-
-        return $this->getGlobalSentiment($messages);
-    }
-
-    public function getSentimentById($date, $id)
-    {
-        $type = $id[0] === 'P' ? 'Post' : 'Tweet';
-        $id = substr($id, 1);
-
-        $message = $this->findMessage($id, $type);
-
-        return $message;
-    }
-
     public function find($date)
     {
         $tweets = $this->findTweets($date);

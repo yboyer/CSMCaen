@@ -9,7 +9,7 @@
 
       <p>Analysis for the <strong>{{ dates[0] }}</strong>, <strong>{{ dates[1] }}</strong> and <strong>{{ dates[2] }}</strong>.</p>
 
-      <div id="resume">
+      <div id="resume" data--1="{{ posts.negatives + tweets.negatives }}" data-0="{{ posts.neutrals + tweets.neutrals }}" data-1="{{ posts.positives + tweets.positives }}">
         <table>
           <thead>
             <tr>
@@ -53,7 +53,7 @@
         </div>
         <div id="messages">
           {% for message in messages %}
-          <div class="message" data-id="{{ message.id }}">
+          <div class="message" data-id="{{ message.id }}" data--1="{{ message.negative }}" data-0="{{ message.neutral }}" data-1="{{ message.positive }}">
             <div class="date">{{ message.date }}</div>
             <div class="content">{{ message.content }}</div>
           </div>

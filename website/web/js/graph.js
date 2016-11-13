@@ -3,45 +3,44 @@ let req = null;
 const label = document.querySelector('#label');
 const resetBtn = document.querySelector('#reset');
 
-req = getData('/api' + location.pathname, (data) => {
-  sentiment = data.sentiment;
-
-  Donut3D.draw(sentimentToData(sentiment));
-  label.textContent = 'All messages';
-
-  req = null;
+// Global graph
+const resume = document.querySelector('#resume');
+const globalSentiment = sentimentToData({
+  '-1': resume.dataset['-1'],
+  '0': resume.dataset['0'],
+  '1': resume.dataset['1'],
 });
+label.textContent = 'All messages';
+Donut3D.draw(globalSentiment);
 
+// Messages interactions
 const messages = document.querySelectorAll('.message');
 messages.forEach((message) => {
   message.onclick = function() {
-    let date = this.querySelector('.date').textContent;
-    let id = this.dataset.id;
+    const id = this.dataset.id;
+    const sentiment = {
+      '-1': this.dataset['-1'],
+      '0': this.dataset['0'],
+      '1': this.dataset['1'],
+    };
 
-
+    // Remove selected element
     const selected = document.querySelector('.message.selected');
     if (selected) {
       selected.classList.remove('selected');
     }
     this.classList.add('selected');
 
-    if (req !== null) {
-      req.abort();
-    }
+    resetBtn.classList.add('show');
 
-    req = getData(`/api/matches/${date}/${id}`, (data) => {
-      resetBtn.classList.add('show');
-
-      label.textContent = 'Message #' + data.id;
-      Donut3D.transition(sentimentToData(data.sentiment));
-      req = null;
-    });
+    label.textContent = 'Message #' + id;
+    Donut3D.transition(sentimentToData(sentiment));
   };
 });
 
 resetBtn.onclick = function() {
   label.textContent = 'All messages';
-  Donut3D.transition(sentimentToData(sentiment));
+  Donut3D.transition(globalSentiment);
   document.querySelector('.message.selected').classList.remove('selected');
   this.classList.remove('show');
 };
@@ -62,30 +61,4 @@ function sentimentToData(sentiment) {
     color: "#98C379",
     value: sentiment[1]
   }]
-}
-
-function getData(url, callback) {
-  return requestAsync(url, (status, text) => {
-    if (status === 200) {
-      callback(JSON.parse(text));
-    } else {
-      alert(status);
-    }
-  });
-}
-
-function requestAsync(url, callback) {
-  var req = new XMLHttpRequest();
-
-  req.addEventListener('load', function() {
-    callback(this.status, req.responseText);
-  });
-  req.addEventListener('error', function() {
-    callback(this.status);
-  });
-
-  req.open('GET', url, true);
-  req.send();
-
-  return req;
 }
