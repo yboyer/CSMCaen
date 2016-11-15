@@ -21,18 +21,23 @@
 ![](.github/screen.png)
 
 ---
-## Technologies
-  - [`Scrapy`](https://scrapy.org/) - Crawler
+## Technologies, libraries and APIs
+  - `Python`
   - [`MySQL`](http://www.mysql.com/) - DBMS
   - [`Silex`](http://silex.sensiolabs.org/) - Micro-framework
+  - [`D3.js`](https://d3js.org/) - Graph displays
   - [`node-sass`](https://github.com/sass/node-sass) - SASS compiler
   - [`SASS`](http://sass-lang.com/) - Better CSS
+  - [`text-processing`](http://text-processing.com/docs/sentiment.html) - Sentiment analysis API
+  - [`graph-api`](https://developers.facebook.com/docs/graph-api) - Facebook API to retrieve posts
+  - [`twitter`](https://pypi.python.org/pypi/twitter/1.17.1) - Twitter library to retrieve tweets
 
 ## Prerequistes
   - [`Composer`](https://getcomposer.org/download/)
   - `Node.js`
   - `npm`
   - `pip`
+    - `twitter`
     - `python-dateutil`
     - `mysql-connector`
 
